@@ -3,7 +3,7 @@ import { products } from "../data";
 const STORAGE = "defined-art-gallery-cart";
 
 export function sendBagToWhatsApp() {
-  const whatsappNumber = "916397522455";
+  const whatsappNumber = "918865889081";
 
   // Get the exact cart structure used by this project
   let cart = {};
