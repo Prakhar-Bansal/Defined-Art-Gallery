@@ -13,8 +13,7 @@ export default function Home({ onAdd }) {
           <div className="eyebrow inverse">HANDMADE WITH LOVE</div>
           <h1>Wear a Little Piece of Art</h1>
           <p>
-            Handcrafted hair clutchers, clips, bands and key rings — each piece
-            made by hand, one at a time.
+            Handcrafted hair clutchers, clips, bands and key rings.
           </p>
           <div className="actions">
             <Button href="/shop">Shop the Collection</Button>
@@ -28,7 +27,7 @@ export default function Home({ onAdd }) {
         <span>100% HANDMADE</span>
         <span>UNIQUE DESIGNS</span>
         <span>ETHICALLY CRAFTED</span>
-        <span>FREE SHIPPING OVER $50</span>
+        <span>FREE SHIPPING OVER ₹999</span>
       </section>
       <section className="section">
         <Head

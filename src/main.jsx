@@ -33,15 +33,27 @@ function App() {
     return () => window.removeEventListener("hashchange", fn);
   }, []);
   useEffect(() => localStorage.setItem(STORAGE, JSON.stringify(cart)), [cart]);
-  const onAdd = (p, q = 1) =>
-    setCart((c) => ({ ...c, [p.id]: (c[p.id] || 0) + q }));
+  const onAdd = (p, q = 1) => {
+    setCart((c) => {
+      const newCart = { ...c };
+      const newQuantity = (newCart[p.id] || 0) + q;
+
+      if (newQuantity <= 0) {
+        delete newCart[p.id];
+      } else {
+        newCart[p.id] = newQuantity;
+      }
+
+      return newCart;
+    });
+  };
   const count = Object.values(cart).reduce((a, b) => a + b, 0);
   let page;
-  if (path === "shop") page = <Shop onAdd={onAdd} />;
+  if (path === "shop") page = <Shop onAdd={onAdd} cart={cart} />;
   else if (path.startsWith("product/")) {
     const id = path.slice(8);
     const p = products.find((x) => x.id === id) || products[0];
-    page = <Product product={p} onAdd={onAdd} />;
+    page = <Product product={p} onAdd={onAdd} cart={cart} />;
   } else if (path === "collections") page = <Collections />;
   else if (path === "about") page = <About />;
   else if (path === "contact") page = <Contact />;

@@ -53,7 +53,7 @@ export default function Cart({ cart, setCart }) {
                         <Plus />
                       </button>
                     </div>
-                    <strong>${(p.price * q).toFixed(2)}</strong>
+                    <strong>₹{(p.price * q).toFixed(2)}</strong>
                   </div>
                   <button
                     className="remove"
@@ -73,15 +73,11 @@ export default function Cart({ cart, setCart }) {
           </div>
           <aside className="summary">
             <h2>Order Summary</h2>
-            <Row l="Subtotal" v={"$" + total.toFixed(2)} />
-            <Row
-              l="Shipping"
-              v={total >= 50 ? "Free" : "Calculated at checkout"}
-            />
+            <Row l="Subtotal" v={"₹" + total.toFixed(2)} />
             <Row l="Handmade to order" v="2–4 days" />
             <div className="sumTotal">
               <b>Total</b>
-              <b>${total.toFixed(2)}</b>
+              <b>₹{total.toFixed(2)}</b>
             </div>
             <Button
               onClick={() => sendBagToWhatsApp()}

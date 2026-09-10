@@ -2,15 +2,19 @@ import { useState } from "react";
 import { Minus, Plus, Check, MessageCircle } from "lucide-react";
 import { Button, Head, ProductCard } from "../components/UI";
 import { products } from "../data";
-export default function Product({ product, onAdd }) {
-  const [q, setQ] = useState(1);
+export default function Product({ product, onAdd, cart }) {
+  const quantity = cart[product.id] || 0;
+
   const [img, setImg] = useState(product.image);
-  const [added, setAdded] = useState(false);
-  const add = () => {
-    onAdd(product, q);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1600);
+
+  const decrease = () => {
+    onAdd(product, -1);
   };
+
+  const increase = () => {
+    onAdd(product, 1);
+  };
+
   return (
     <>
       <div className="breadcrumb">
@@ -40,32 +44,37 @@ export default function Product({ product, onAdd }) {
             {product.category === "clutchers"
               ? "HAIR CLUTCHERS"
               : product.category === "clips"
-              ? "HAIR CLIPS"
-              : product.category === "bands"
-              ? "HAIR BANDS"
-              : "KEY RINGS"}
+                ? "HAIR CLIPS"
+                : product.category === "bands"
+                  ? "HAIR BANDS"
+                  : "KEY RINGS"}
           </div>
           <h1>{product.name}</h1>
           <div className="rating">
             <span>★ ★ ★ ★ ★</span> <small>(48 reviews)</small>
           </div>
-          <div className="price">${product.price.toFixed(2)}</div>
+          <div className="price">₹{product.price.toFixed(2)}</div>
           <p>
             {product.description} Because every piece is handmade, yours will be
             beautifully one-of-a-kind.
           </p>
-          <div className="quantity">
-            <button onClick={() => setQ(Math.max(1, q - 1))}>
-              <Minus />
-            </button>
-            <b>{q}</b>
-            <button onClick={() => setQ(q + 1)}>
-              <Plus />
-            </button>
-          </div>
-          <button className="whatsapp" onClick={add}>
-            {added ? "Added to Bag ✓" : "Add to Bag"}
-          </button>
+          {onAdd &&
+            (quantity === 0 ? (
+              <button className="whatsapp" onClick={() => onAdd(product, 1)}>
+                Add to Bag
+              </button>
+            ) : (
+              <div className="quantity">
+                <button onClick={decrease}>
+                  <Minus />
+                </button>
+                <b>{quantity}</b>
+                <button onClick={increase}>
+                  <Plus />
+                </button>
+              </div>
+            ))}
+
           <a
             className="whatsapp secondary"
             href="https://wa.me/61400000000"
@@ -74,8 +83,8 @@ export default function Product({ product, onAdd }) {
             <MessageCircle size={18} /> Order on WhatsApp
           </a>
           <div className="note">
-            <MessageCircle size={18} /> Message us on 6397522455 — we
-            usually reply within an hour.
+            <MessageCircle size={18} /> Message us on 6397522455 — we usually
+            reply within an hour.
           </div>
           <ul>
             <li>
@@ -92,7 +101,7 @@ export default function Product({ product, onAdd }) {
             </li>
             <li>
               <Check />
-              Free shipping on orders over $50
+              Free shipping on orders over ₹50
             </li>
           </ul>
         </div>
@@ -100,10 +109,23 @@ export default function Product({ product, onAdd }) {
       <section className="related">
         <Head title="You May Also Like" />
         <div className="productGrid">
-          {products
-            .filter((p) => p.id !== product.id)
+          {["clutchers", "clips", "bands", "rings"]
+            .sort(() => Math.random() - 0.5)
+            .map((category) => {
+              const available = products.filter(
+                (p) =>
+                  p.category === category && !cart[p.id] && p.id !== product.id,
+              );
+              if (available.length === 0) return null;
+
+              const randomProduct =
+                available[Math.floor(Math.random() * available.length)];
+
+              return randomProduct;
+            })
+            .filter(Boolean)
             .map((p) => (
-              <ProductCard p={p} onAdd={onAdd} key={p.id} />
+              <ProductCard p={p} onAdd={onAdd} cart={cart} key={p.id} />
             ))}
         </div>
       </section>

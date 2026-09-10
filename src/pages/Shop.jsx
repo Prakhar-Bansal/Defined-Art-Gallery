@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Head, ProductCard } from "../components/UI";
 import { products } from "../data";
-export default function Shop({ onAdd }) {
+export default function Shop({ onAdd, cart }) {
   const params = new URLSearchParams(location.hash.split("?")[1] || "");
   const initial = params.get("category") || "all";
   const [filter, setFilter] = useState(initial);
@@ -30,17 +30,21 @@ export default function Shop({ onAdd }) {
           {[
             ["all", "All"],
             ["clutchers", "Clutchers"],
+            ["rings", "Key Rings"],
             ["clips", "Clips"],
             ["bands", "Bands"],
-            ["rings", "Key Rings"],
           ].map(([v, l]) => (
-            <button
-              className={filter === v ? "active" : ""}
-              onClick={() => setFilter(v)}
-              key={v}
-            >
-              {l}
-            </button>
+            <a href={`#/shop?category=${v}`}>
+              <button
+                className={filter === v ? "active" : ""}
+                onClick={() => {
+                  setFilter(v);
+                }}
+                key={v}
+              >
+                {l}
+              </button>
+            </a>
           ))}
         </div>
         <label className="sort">
@@ -55,7 +59,7 @@ export default function Shop({ onAdd }) {
       </div>
       <section className="shopGrid">
         {list.map((p) => (
-          <ProductCard p={p} onAdd={onAdd} key={p.id} />
+          <ProductCard p={p} onAdd={onAdd} cart={cart} key={p.id} />
         ))}
       </section>
     </>

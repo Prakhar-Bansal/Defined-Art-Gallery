@@ -48,8 +48,8 @@ export function sendBagToWhatsApp() {
       return (
         `${index + 1}. ${product.name}\n` +
         `Quantity: ${quantity}\n` +
-        `Price: $${product.price.toFixed(2)}\n` +
-        `Subtotal: $${subtotal.toFixed(2)}`
+        `Price: ₹{product.price.toFixed(2)}\n` +
+        `Subtotal: ₹${subtotal.toFixed(2)}`
       );
     })
     .join("\n\n");
@@ -62,14 +62,14 @@ export function sendBagToWhatsApp() {
         const subtotal = product.price * quantity;
         return (
           `*${index + 1}. ${product.name}*\n` +
-          `Qty: ${quantity} × $${product.price.toFixed(2)}\n` +
-          `Subtotal: *$${subtotal.toFixed(2)}*`
+          `Qty: ${quantity} × ₹${product.price.toFixed(2)}\n` +
+          `Subtotal: *₹${subtotal.toFixed(2)}*`
         );
       })
       .join("\n\n") +
     `\n\n` +
     `━━━━━━━━━━━━━━\n` +
-    `*Order Total: $${total.toFixed(2)}*\n` +
+    `*Order Total: ₹${total.toFixed(2)}*\n` +
     `━━━━━━━━━━━━━━\n\n` +
     `Could you please confirm the availability and let me know the next steps for placing the order?\n\n` +
     `Thank you! 😊`;

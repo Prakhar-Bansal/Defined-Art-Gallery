@@ -29,9 +29,6 @@ export default function Header({ cartCount = 0 }) {
             <ShoppingBag size={18} />
             {cartCount > 0 && <em>{cartCount}</em>}
           </a>
-          <a className="btn small" href="#/shop">
-            Shop Now
-          </a>
         </nav>
         <button
           className="mobileToggle"
