@@ -12,9 +12,7 @@ export default function Home({ onAdd }) {
         <div className="heroContent">
           <div className="eyebrow inverse">HANDMADE WITH LOVE</div>
           <h1>Wear a Little Piece of Art</h1>
-          <p>
-            Handcrafted hair clutchers, clips, bands and key rings.
-          </p>
+          <p>Handcrafted hair clutchers, clips, bands and key rings.</p>
           <div className="actions">
             <Button href="/shop">Shop the Collection</Button>
             <Button outline href="/about">
@@ -62,13 +60,12 @@ export default function Home({ onAdd }) {
       <section className="section center">
         <Head eyebrow="LOVED BY MANY" title="Our Bestsellers" />
         <div className="productGrid">
-          {products.map((p) => (
-            <ProductCard p={p} onAdd={onAdd} key={p.id} />
-          ))}
+          {products
+            .filter((item) => item.badge === "BESTSELLER")
+            .map((p) => (
+              <ProductCard p={p} onAdd={onAdd} key={p.id} />
+            ))}
         </div>
-        <Button outline href="/shop">
-          View All Products
-        </Button>
       </section>
       <section className="section testimonials" id="reviews">
         <Head eyebrow="KIND WORDS" title="What Our Customers Say" />

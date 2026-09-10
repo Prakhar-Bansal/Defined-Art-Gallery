@@ -1,6 +1,6 @@
 export const imgs = {
   hero: "/assets/homepage.png",
-  clutchers:"/assets/clature1.png",
+  clutchers:"/assets/claturebrownthreehearts.png",
   clips:"/assets/hairclip1.png",
   bands:
     "/assets/hairband1.png",
@@ -219,7 +219,7 @@ export const products = [
   id: "evil-eye-key-ring",
   name: "Evil Eye Key Ring",
   category: "rings",
-  badge: "NEW",
+  badge: "BESTSELLER",
   price: 100,
   image: imgs.keyringevileye,
   description: "A handmade evil eye charm to add a stylish touch to your keys or favourite bag.",
@@ -327,7 +327,6 @@ export const products = [
     id: "pearl-bow-clip-set",
     name: "Pearl Bow Clip Set",
     category: "clips",
-    badge: "BESTSELLER",
     price: 12,
     image: imgs.pearl,
     description:
